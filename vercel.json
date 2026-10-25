@@ -6,11 +6,11 @@
   "rewrites": [
     {
       "source": "/api/v1/:path*",
-      "destination": "https://ai-mystery-room-api.onrender.com/api/v1/:path*"
+      "destination": "https://ai-mystery-room-api-5eon.onrender.com/api/v1/:path*"
     },
     {
       "source": "/uploads/:path*",
-      "destination": "https://ai-mystery-room-api.onrender.com/uploads/:path*"
+      "destination": "https://ai-mystery-room-api-5eon.onrender.com/uploads/:path*"
     },
     {
       "source": "/(.*)",
