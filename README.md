@@ -24,3 +24,7 @@ The server listens on port 5000 by default. The client uses `VITE_API_BASE_URL` 
 - `npm start` starts the server.
 
 Case generation jobs are persisted in MongoDB. A case can be retried from its failure screen. See [docs/DECISIONS.md](docs/DECISIONS.md) for implementation decisions and current boundaries.
+
+## Deploy on Render
+
+The root `render.yaml` deploys the React client and Express API as one web service. Push the repository to GitHub, connect it to Render, and create a Blueprint from the repository. During setup, enter `MONGODB_URI` for a hosted MongoDB database and `GEMINI_API_KEY` as secret values in Render; do not commit these values. Image generation stays disabled. The free web service can sleep after inactivity and has an ephemeral filesystem, so it is suitable for a demo rather than production.

@@ -3,7 +3,7 @@ import { Camera, FileText, Image as ImageIcon, MessageSquare, Pause, Play, SkipB
 import { api } from '../api/client.js';
 
 const icons = { chat: MessageSquare, image: ImageIcon, cctv: Camera, note: FileText, document: FileText };
-export const assetUrl = (value) => value ? new URL(value, api.defaults.baseURL).href : '';
+export const assetUrl = (value) => value ? new URL(value, api.defaults.baseURL.startsWith('http') ? api.defaults.baseURL : window.location.origin).href : '';
 export function EvidenceIcon({ type, size = 16 }) { const Icon = icons[type] || FileText; return <Icon size={size}/>; }
 
 export function EvidenceView({ item }) {
