@@ -1,9 +1,9 @@
 services:
   - type: web
-    name: ai-mystery-room
+    name: ai-mystery-room-api
     runtime: node
     plan: free
-    buildCommand: npm ci && VITE_API_BASE_URL=/api/v1 npm run build
+    buildCommand: npm ci
     startCommand: npm start
     healthCheckPath: /api/v1/health
     envVars:
@@ -12,6 +12,8 @@ services:
       - key: MONGODB_URI
         sync: false
       - key: GEMINI_API_KEY
+        sync: false
+      - key: CLIENT_ORIGIN
         sync: false
       - key: ENABLE_IMAGE_GENERATION
         value: "false"

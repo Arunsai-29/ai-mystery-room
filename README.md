@@ -25,6 +25,13 @@ The server listens on port 5000 by default. The client uses `VITE_API_BASE_URL` 
 
 Case generation jobs are persisted in MongoDB. A case can be retried from its failure screen. See [docs/DECISIONS.md](docs/DECISIONS.md) for implementation decisions and current boundaries.
 
-## Deploy on Render
+## Deploy on Vercel and Render
 
-The root `render.yaml` deploys the React client and Express API as one web service. Push the repository to GitHub, connect it to Render, and create a Blueprint from the repository. During setup, enter `MONGODB_URI` for a hosted MongoDB database and `GEMINI_API_KEY` as secret values in Render; do not commit these values. Image generation stays disabled. The free web service can sleep after inactivity and has an ephemeral filesystem, so it is suitable for a demo rather than production.
+The frontend deploys to Vercel and the API deploys to Render. `vercel.json` builds the Vite client, proxies `/api/v1` and `/uploads` to the Render API, and routes browser paths back to the React app. `render.yaml` defines the API service.
+
+1. Import this GitHub repository into Vercel, leaving the project root at the repository root. Deploy once to get the production Vercel URL.
+2. Create a Render Blueprint from this repository. Set `MONGODB_URI`, `GEMINI_API_KEY`, and `CLIENT_ORIGIN` in Render; `CLIENT_ORIGIN` is the Vercel production origin (for example, `https://your-app.vercel.app`). Keep credentials in the host dashboard, not in Git.
+3. Render should assign `https://ai-mystery-room-api.onrender.com`. If it assigns a different hostname, update both Render destinations in `vercel.json` and push the change to GitHub so Vercel redeploys.
+4. Allow the Render service to connect to your hosted MongoDB cluster. Image generation remains disabled.
+
+Render's free web services sleep after 15 minutes without traffic and may take about a minute to wake up. Their local filesystem is ephemeral, so this setup is intended for a demo; MongoDB holds persistent case data.

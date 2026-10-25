@@ -1,0 +1,20 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "npm ci",
+  "buildCommand": "VITE_API_BASE_URL=/api/v1 npm run build",
+  "outputDirectory": "client/dist",
+  "rewrites": [
+    {
+      "source": "/api/v1/:path*",
+      "destination": "https://ai-mystery-room-api.onrender.com/api/v1/:path*"
+    },
+    {
+      "source": "/uploads/:path*",
+      "destination": "https://ai-mystery-room-api.onrender.com/uploads/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
