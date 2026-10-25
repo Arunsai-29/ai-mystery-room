@@ -1,0 +1,27 @@
+import express from 'express';
+import helmet from 'helmet';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import pinoHttp from 'pino-http';
+import path from 'node:path';
+import { env } from './config/env.js';
+import { sessionMiddleware } from './middleware/session.js';
+import { errorHandler, notFound } from './middleware/errors.js';
+import { healthRouter } from './routes/health.routes.js';
+import { casesRouter } from './routes/cases.routes.js';
+
+export const app = express();
+app.disable('x-powered-by');
+app.set('etag', false);
+app.use(helmet());
+app.use(cors({ origin: env.CLIENT_ORIGIN, credentials: true }));
+app.use(express.json({ limit: '50kb' }));
+app.use(cookieParser());
+app.use(pinoHttp({ genReqId: (req) => req.headers['x-request-id'] || crypto.randomUUID(), serializers: { req: (req) => ({ id: req.id, method: req.method, url: req.url }) } }));
+app.use('/api/v1/health', healthRouter);
+app.use('/uploads', express.static(path.resolve(env.UPLOAD_DIR), { maxAge: '1d', fallthrough: true }));
+app.post('/api/v1/session', sessionMiddleware, (_req, res) => res.json({ ok: true, data: { ready: true } }));
+app.use('/api/v1', sessionMiddleware);
+app.use('/api/v1/cases', casesRouter);
+app.use(notFound);
+app.use(errorHandler);

@@ -1,0 +1,8 @@
+:root {
+  --bg-base: #0B0F1A; --bg-surface: #121826; --bg-elevated: #1A2236; --border-subtle: #263049;
+  --text-primary: #EAE6DD; --text-muted: #A8B1C5; --accent-amber: #F5B544; --accent-amber-dark: #C48A1E;
+  --accent-red: #E5484D; --accent-teal: #2DD4BF; --paper: #F1E9D6; --paper-ink: #2B2418;
+  --chat-out: #0F5D4B; --chat-in: #1F2937; --cctv-green: #7CFF9B;
+  --grad-hero: radial-gradient(1200px 600px at 50% -10%, rgba(245,181,68,.18), transparent 60%), radial-gradient(900px 500px at 90% 20%, rgba(229,72,77,.10), transparent 60%);
+  --glass-bg: rgba(18,24,38,.68); --glass-border: rgba(255,255,255,.09); --glass-highlight: inset 0 1px 0 rgba(255,255,255,.07);
+}
